@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: mc-self-checkout
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mc-self-checkout
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./.postgres-data:/var/lib/postgresql/data
+
+volumes:
+  .postgres-data:
