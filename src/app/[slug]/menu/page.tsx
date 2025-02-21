@@ -1,7 +1,7 @@
 import { db } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import RestaurantHeader from "./components/header";
-import RestaurantCategories from "./components/categoires";
+import RestaurantCategories from "./components/categories";
 import ProductList from "./components/product-list";
 
 interface RestaurantMenuPageProps {
