@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatCurrency } from "@/helper/format-currency";
 import type { Prisma } from "@prisma/client";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -27,8 +28,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   };
 
   return (
-    <div className="relative z-50 mt-[-1rem] flex flex-auto flex-col rounded-t-3xl bg-white px-5 py-5">
-      <div className="flex-auto">
+    <div className="relative z-50 mt-[-1rem] flex flex-auto flex-col overflow-hidden rounded-t-3xl bg-white p-5">
+      <div className="flex-auto overflow-hidden">
         <div className="flex gap-1">
           {/* RESTAURANTE */}
           <div className="flex items-center gap-1">
@@ -72,25 +73,32 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </div>
         </div>
 
-        {/* SOBRE */}
-        <div className="mt-6 space-y-3">
-          <h4 className="mt-6 text-sm font-semibold">Sobre</h4>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {product.description}
-          </p>
-        </div>
-
-        {/* INGREDIENTES */}
-        <div className="mt-6 space-y-3">
-          <div className="flex items-center gap-1.5">
-            <ChefHatIcon size={16} />
-            <h4 className="text-sm font-semibold">Ingredientes</h4>
+        <ScrollArea className="h-full">
+          {/* SOBRE */}
+          <div className="mt-6 space-y-3">
+            <h4 className="mt-6 text-sm font-semibold">Sobre</h4>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {product.description}
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground">{product.description}</p>
-        </div>
+
+          {/* INGREDIENTES */}
+          <div className="mt-6 space-y-3">
+            <div className="flex items-center gap-1.5">
+              <ChefHatIcon size={16} />
+              <h4 className="text-sm font-semibold">Ingredientes</h4>
+            </div>
+
+            <ul className="list-disc px-5 text-sm text-muted-foreground">
+              {product.ingredients.map((ingredient) => (
+                <li key={ingredient}>{ingredient}</li>
+              ))}
+            </ul>
+          </div>
+        </ScrollArea>
       </div>
 
-      <Button className="mt-6 w-full rounded-full">Adicionar à sacola</Button>
+      <Button className="w-full rounded-full">Adicionar à sacola</Button>
     </div>
   );
 };
