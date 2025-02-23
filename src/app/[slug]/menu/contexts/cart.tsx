@@ -28,7 +28,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const toggleCart = () => setIsOpen((prev) => !prev);
 
   const addProduct = (product: CartProduct) => {
-    setProducts((prev) => [...prev, product]);
+    // Check if the product is already in the cart
+    const productIsAlreadyInCart = products.some(
+      (prevProduct) => prevProduct.id === product.id,
+    );
+    // if the product is not in the cart, add it
+    if (!productIsAlreadyInCart) {
+      return setProducts((prev) => [...prev, product]);
+    }
+    // if else, check the product on the map and update the quantity
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id === product.id) {
+          return {
+            ...prevProduct,
+            quantity: prevProduct.quantity + product.quantity,
+          };
+        }
+        return prevProduct;
+      });
+    });
   };
 
   return (
