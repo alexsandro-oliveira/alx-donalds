@@ -1,3 +1,8 @@
+//Função para retirar a pontuação do CPF e salvar no banco de dados
+export const removeCpfPunctuation = (cpf: string): string => {
+  return cpf.replace(/[\.\-]/g, "");
+};
+
 export const isValidCpf = (cpf: string): boolean => {
   //Remove caracteres não númericos
   cpf = cpf.replace(/\D/g, "");
