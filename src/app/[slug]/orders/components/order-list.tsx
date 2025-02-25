@@ -5,6 +5,7 @@ import { formatCurrency } from "@/helper/format-currency";
 import { OrderStatus, type Order, type Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface OrderListProps {
   orders: Array<
@@ -34,10 +35,18 @@ const getStatusLabel = (status: OrderStatus) => {
 };
 
 const OrderList = ({ orders }: OrderListProps) => {
+  const router = useRouter();
+  const handleBackClick = () => router.back();
+
   return (
     <div className="space-y-6 p-6">
       <header>
-        <Button size="icon" variant="secondary" className="rounded-full">
+        <Button
+          size="icon"
+          variant="secondary"
+          className="rounded-full"
+          onClick={handleBackClick}
+        >
           {" "}
           <ChevronLeftIcon />
         </Button>
