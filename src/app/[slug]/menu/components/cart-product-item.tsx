@@ -18,7 +18,13 @@ const CartProductItem = ({ product }: CartProductItemProps) => {
       <div className="flex items-center gap-3">
         {/* ESQUERDA */}
         <div className="relative h-20 w-20 rounded-xl bg-gray-100">
-          <Image src={product.imageUrl} alt={product.name} fill />
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            fill
+            className="object-contain"
+            priority
+          />
         </div>
         <div className="space-y-1">
           <p className="max-w-[90%] truncate text-ellipsis text-xs">
