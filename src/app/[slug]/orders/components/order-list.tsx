@@ -36,10 +36,13 @@ const getStatusLabel = (status: OrderStatus) => {
 const OrderList = ({ orders }: OrderListProps) => {
   return (
     <div className="space-y-6 p-6">
-      <Button size="icon" variant="secondary" className="rounded-full">
-        {" "}
-        <ChevronLeftIcon />
-      </Button>
+      <header>
+        <Button size="icon" variant="secondary" className="rounded-full">
+          {" "}
+          <ChevronLeftIcon />
+        </Button>
+      </header>
+
       <div className="flex items-center gap-3">
         <ScrollTextIcon />
         <h2 className="text-lg font-semibold">Meus Pedidos</h2>
@@ -48,6 +51,7 @@ const OrderList = ({ orders }: OrderListProps) => {
       {orders.map((order) => (
         <Card key={order.id}>
           <CardContent className="space-y-4 p-5">
+            {/* TODO: INCLUIR DATA E HORA DO PEDIDO */}
             <div
               className={`w-fit rounded-full px-2 py-1 text-xs font-semibold text-white ${
                 order.status === OrderStatus.FINISHED
