@@ -20,10 +20,11 @@ const CartSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
-      <SheetContent className="w-[80%]">
+      <SheetContent className="w-[85%]">
         <SheetHeader>
           <SheetTitle className="text-left">Sacola</SheetTitle>
         </SheetHeader>
+        <SheetDescription />
         <div className="flex h-full flex-col py-5">
           <div className="flex-auto">
             {products.map((product) => (
@@ -41,6 +42,7 @@ const CartSheet = () => {
           </Card>
 
           <Button
+            disabled={products.length === 0}
             className="w-full rounded-full"
             onClick={() => setFinishOrderDialogOpen(true)}
           >
