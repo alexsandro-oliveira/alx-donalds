@@ -22,12 +22,12 @@ const CartProductItem = ({ product }: CartProductItemProps) => {
             src={product.imageUrl}
             alt={product.name}
             fill
-            className="object-contain"
+            className="object-contain sm:h-full"
             priority
           />
         </div>
         <div className="space-y-1">
-          <p className="max-w-[90%] truncate text-ellipsis text-xs">
+          <p className="max-w-[80%] truncate text-xs max-[375px]:max-w-[120px]">
             {product.name}
           </p>
           <span className="text-sm font-semibold">
@@ -36,15 +36,15 @@ const CartProductItem = ({ product }: CartProductItemProps) => {
           <div className="flex items-center gap-3 text-center">
             <Button
               variant="outline"
-              className="h-7 w-7 rounded-lg"
+              className="h-6 w-6 rounded-xl"
               onClick={() => decreaseProductQuantity(product.id)}
             >
               <ChevronLeftIcon />
             </Button>
-            <span className="w-4">{product.quantity}</span>
+            <span className="w-3">{product.quantity}</span>
             <Button
               variant="destructive"
-              className="h-7 w-7 rounded-lg"
+              className="h-6 w-6 rounded-xl"
               onClick={() => increaseProductQuantity(product.id)}
             >
               <ChevronRightIcon />
