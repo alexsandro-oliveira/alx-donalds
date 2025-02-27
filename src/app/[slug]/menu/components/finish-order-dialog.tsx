@@ -92,7 +92,7 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild></DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="mx-auto max-w-screen-lg">
         <DrawerHeader>
           <DrawerTitle>Quase lá!</DrawerTitle>
           <DrawerDescription>

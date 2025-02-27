@@ -22,7 +22,7 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
   }
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center px-6">
+    <div className="mx-auto flex h-screen max-w-screen-md flex-col items-center justify-center px-6">
       {/* LOGO E TITULO */}
       <div className="flex flex-col items-center gap-2">
         <Image
@@ -34,7 +34,7 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
         <h2 className="text-lg font-semibold">{restaurant.name}</h2>
       </div>
       {/* BEM VINDO */}
-      <div className="space-y-2 pt-24 text-center">
+      <div className="space-y-2 pt-16 text-center">
         <h1 className="text-2xl font-semibold">Seja bem-vindo!</h1>
         <p className="text-muted-foreground">
           Escolha como prefere aproveitar sua refeição. Estamos aqui para

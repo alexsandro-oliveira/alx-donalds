@@ -18,7 +18,7 @@ const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
   const handleOrdersClick = () => router.push(`/${slug}/orders`);
 
   return (
-    <div className="relative h-[258px] w-full">
+    <div className="relative mx-auto h-[200px] w-full max-w-screen-lg lg:h-[300px]">
       <Button
         size="icon"
         variant="secondary"

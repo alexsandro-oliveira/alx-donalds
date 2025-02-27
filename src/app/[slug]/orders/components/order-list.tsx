@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { ptBR } from "date-fns/locale";
+import { format } from "date-fns";
 import { formatCurrency } from "@/helper/format-currency";
 import { OrderStatus, type Order, type Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
@@ -63,6 +65,24 @@ const OrderList = ({ orders }: OrderListProps) => {
         <Card key={order.id}>
           <CardContent className="space-y-4 p-5">
             {/* TODO: INCLUIR DATA E HORA DO PEDIDO */}
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1">
+                <p className="text-sm text-muted-foreground">Pedido #:</p>
+                <span className="text-sm font-semibold">{order.id}</span>
+              </div>
+
+              <time className="flex items-center gap-1 text-xs text-muted-foreground">
+                <p>Criado em: </p>
+                {format(
+                  new Date(order.createdAt),
+                  "dd/MM/yyyy 'às' HH:mm'hs'",
+                  {
+                    locale: ptBR,
+                  },
+                )}
+              </time>
+            </div>
+            <Separator />
             <div
               className={`w-fit rounded-full px-2 py-1 text-xs font-semibold text-white ${
                 order.status === OrderStatus.FINISHED

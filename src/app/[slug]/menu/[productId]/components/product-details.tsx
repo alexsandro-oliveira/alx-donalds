@@ -38,7 +38,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   return (
     <>
-      <div className="relative z-50 mt-[-1rem] flex flex-auto flex-col overflow-hidden rounded-t-3xl bg-white p-5">
+      <div className="relative z-50 mt-[-1.5rem] flex flex-auto flex-col overflow-hidden rounded-t-3xl bg-white p-5">
         <div className="flex-auto overflow-hidden">
           <div className="flex gap-1">
             {/* RESTAURANTE */}
@@ -108,7 +108,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </ScrollArea>
         </div>
 
-        <Button className="w-full rounded-full" onClick={handleAddToCart}>
+        <Button
+          className="w-full rounded-full lg:mx-auto lg:w-2/4"
+          onClick={handleAddToCart}
+        >
           Adicionar à sacola
         </Button>
       </div>

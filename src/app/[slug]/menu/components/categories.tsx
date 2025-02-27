@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import type { MenuCategory, Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import { ClockIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
@@ -37,7 +37,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
   };
 
   return (
-    <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl border bg-white">
+    <div className="relative z-50 mx-auto mt-[-1.5rem] max-w-screen-lg rounded-t-3xl border bg-white">
       <div className="p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -55,7 +55,10 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
             </div>
           </div>
 
-          <Badge variant="outline" className="gap-1 px-2 py-1">
+          <Badge
+            variant="outline"
+            className="gap-1 px-2 py-1 lg:mr-6 lg:px-6 lg:py-3"
+          >
             <StarIcon size={14} color="#FFB100" fill="#FFB100" />
             <span className="text-xs font-medium">5.0</span>
           </Badge>
@@ -86,20 +89,22 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
       <ProductList products={selectedCategory.products} />
 
       {products.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 flex w-full items-center justify-between border-t bg-white px-5 py-3">
-          <div>
-            <p className="text-xs text-muted-foreground">Total dos pedidos</p>
-            <p className="text-sm font-semibold">
-              {formatCurrency(total)}{" "}
-              <span className="text-xs font-normal text-muted-foreground">
-                / {totalQuantity} {totalQuantity > 1 ? "itens" : "item"}
-              </span>
-            </p>
+        <div className="fixed bottom-0 left-0 right-0 flex w-full items-center justify-between border-t bg-white px-5 py-3 opacity-90">
+          <div className="mx-auto flex w-full max-w-screen-xl justify-between">
+            <div>
+              <p className="text-xs text-muted-foreground">Total dos pedidos</p>
+              <p className="text-sm font-semibold">
+                {formatCurrency(total)}{" "}
+                <span className="text-xs font-normal text-muted-foreground">
+                  / {totalQuantity} {totalQuantity > 1 ? "itens" : "item"}
+                </span>
+              </p>
+            </div>
+            <Button className="rounded-xl" onClick={toggleCart}>
+              Ver Sacola
+            </Button>
+            <CartSheet />
           </div>
-          <Button className="rounded-xl" onClick={toggleCart}>
-            Ver Sacola
-          </Button>
-          <CartSheet />
         </div>
       )}
     </div>
