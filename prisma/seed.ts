@@ -89,7 +89,7 @@ const main = async () => {
           name: "Duplo Cheddar McMelt",
           description:
             "Dois hambúrgueres (100% carne bovina), molho lácteo com queijo tipo cheddar, cebola ao molho shoyu e pão escuro com gergelim, acompanhamento e bebida.",
-          price: 36.2,
+          price: 36.9,
           imageUrl:
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQWdq0w8niS9XCLQu7Nb4jvBYZze16goaOqsKR",
           menuCategoryId: combosCategory.id,
@@ -180,7 +180,7 @@ const main = async () => {
             "Molho lácteo com queijo tipo cheddar",
             "Cebola ao molho shoyu",
           ],
-          price: 36.2,
+          price: 36.9,
           imageUrl:
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQBBmifbjzEVXRoycAtrP9vH45bZ6WDl3QF0a1",
           menuCategoryId: hamburguersCategory.id,

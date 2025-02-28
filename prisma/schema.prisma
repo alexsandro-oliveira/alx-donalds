@@ -23,6 +23,7 @@ model Restaurant {
   menuCategories MenuCategory[]
   products       Product[]
   orders         Order[]
+  ratings        Rating[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
 }
@@ -77,6 +78,15 @@ model OrderProduct {
   price     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Rating {
+  id          String     @id @default(uuid())
+  rating       Int  
+  restaurant  Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  restaurantId String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 enum OrderStatus {
