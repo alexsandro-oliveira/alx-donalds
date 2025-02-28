@@ -64,7 +64,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
           </div>
 
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button variant="outline" className="gap-2 rounded-full">
                 <StarIcon size={16} color="#FFB100" fill="#FFB100" />
                 <span className="text-xs font-medium">5.0</span>
