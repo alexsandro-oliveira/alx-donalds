@@ -1,4 +1,3 @@
-import { getRestaurantBySlug } from "@/_data/get-restaurant-by-slug";
 import { db } from "@/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
