@@ -11,6 +11,14 @@ import ProductList from "./product-list";
 import { CartContext } from "../contexts/cart";
 import { formatCurrency } from "@/helper/format-currency";
 import CartSheet from "./cart-sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import RatingStarDialog from "./rating-dialog";
 
 interface RestaurantCategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{
@@ -55,13 +63,17 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
             </div>
           </div>
 
-          <Badge
-            variant="outline"
-            className="gap-1 px-2 py-1 lg:mr-6 lg:px-6 lg:py-3"
-          >
-            <StarIcon size={14} color="#FFB100" fill="#FFB100" />
-            <span className="text-xs font-medium">5.0</span>
-          </Badge>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="outline" className="gap-2 rounded-full">
+                <StarIcon size={16} color="#FFB100" fill="#FFB100" />
+                <span className="text-xs font-medium">5.0</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="w-[80%] rounded-3xl">
+              <RatingStarDialog restaurant={restaurant} />
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="mt-3 flex items-center gap-1 text-xs text-green-500">
           <ClockIcon size={16} />
