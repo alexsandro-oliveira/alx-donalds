@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 interface CreateRatingInput {
   rating: number;
   restaurantId: string;
+  slug?: string;
 }
 
 export const createRating = async (input: CreateRatingInput) => {
@@ -14,4 +15,5 @@ export const createRating = async (input: CreateRatingInput) => {
       ...input,
     },
   });
+  revalidatePath(`/${input.slug}/menu`);
 };

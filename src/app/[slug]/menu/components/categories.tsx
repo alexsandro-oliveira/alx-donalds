@@ -1,24 +1,13 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import type { Prisma } from "@prisma/client";
-import { ClockIcon, StarIcon } from "lucide-react";
-import Image from "next/image";
 import { useContext, useState } from "react";
 import ProductList from "./product-list";
 import { CartContext } from "../contexts/cart";
 import { formatCurrency } from "@/helper/format-currency";
 import CartSheet from "./cart-sheet";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import RatingStarDialog from "./rating-dialog";
 
 interface RestaurantCategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{
@@ -45,42 +34,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
   };
 
   return (
-    <div className="relative z-50 mx-auto mt-[-1.5rem] max-w-screen-lg rounded-t-3xl border bg-white">
-      <div className="p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src={restaurant.avatarImageUrl}
-              alt={restaurant.name}
-              width={45}
-              height={45}
-            />
-            <div className="flex flex-col">
-              <h1 className="text-lg font-semibold">{restaurant.name}</h1>
-              <p className="text-xs text-muted-foreground">
-                {restaurant.description}
-              </p>
-            </div>
-          </div>
-
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="gap-2 rounded-full">
-                <StarIcon size={16} color="#FFB100" fill="#FFB100" />
-                <span className="text-xs font-medium">5.0</span>
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="w-[80%] rounded-3xl">
-              <RatingStarDialog restaurant={restaurant} />
-            </DialogContent>
-          </Dialog>
-        </div>
-        <div className="mt-3 flex items-center gap-1 text-xs text-green-500">
-          <ClockIcon size={16} />
-          <p>Aberto</p>
-        </div>
-      </div>
-
+    <div>
       <ScrollArea className="w-full">
         <div className="flex w-max space-x-4 p-4 pt-0">
           {restaurant.menuCategories.map((category) => (

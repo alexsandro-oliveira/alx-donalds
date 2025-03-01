@@ -16,7 +16,7 @@ import { createRating } from "../actions/create_rating";
 import type { Restaurant } from "@prisma/client";
 
 interface RatingStarProps {
-  restaurant: Pick<Restaurant, "id">;
+  restaurant: Pick<Restaurant, "id" | "slug" | "name">;
 }
 
 const RatingStarDialog = ({ restaurant }: RatingStarProps) => {
@@ -28,7 +28,10 @@ const RatingStarDialog = ({ restaurant }: RatingStarProps) => {
         return;
       }
 
-      await createRating({ restaurantId: restaurant.id, rating: rating });
+      await createRating({
+        restaurantId: restaurant.id,
+        rating: rating,
+      });
 
       toast.success("Avaliação enviada com sucesso!");
     } catch (error) {
@@ -42,7 +45,7 @@ const RatingStarDialog = ({ restaurant }: RatingStarProps) => {
       <DialogHeader>
         <DialogTitle>Avalie este Restaurante</DialogTitle>
         <DialogDescription>
-          {`Toque nas estrelas para avaliar sua experiência`}
+          {`Toque nas estrelas para avaliar sua experiência com o ${restaurant.name}`}
         </DialogDescription>
       </DialogHeader>
       <div className="flex justify-center">

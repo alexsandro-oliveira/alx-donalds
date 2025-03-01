@@ -1,13 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import type { Restaurant } from "@prisma/client";
-import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
+import { ChevronLeftIcon, ScrollTextIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
+import RatingStarDialog from "./rating-dialog";
 
 interface RestaurantMenuPageProps {
-  restaurant: Pick<Restaurant, "coverImageUrl" | "name">;
+  restaurant: Pick<Restaurant, "coverImageUrl" | "name" | "id" | "slug">;
 }
 
 const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
@@ -43,6 +45,21 @@ const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
       >
         <ScrollTextIcon />
       </Button>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant="outline"
+            className="absolute bottom-8 right-4 z-50 gap-1 rounded-full opacity-80"
+          >
+            <StarIcon size={16} color="#FFB100" fill="#FFB100" />
+            <span className="text-xs font-medium">Avalie</span>
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="w-[80%] rounded-3xl">
+          <RatingStarDialog restaurant={restaurant} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
