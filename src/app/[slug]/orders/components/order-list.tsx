@@ -9,7 +9,7 @@ import { formatCurrency } from "@/helper/format-currency";
 import { OrderStatus, type Order, type Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 interface OrderListProps {
   orders: Array<
@@ -29,6 +29,7 @@ interface OrderListProps {
       };
     }>
   >;
+  consumptionMethod: string;
 }
 
 const getStatusLabel = (status: OrderStatus) => {
@@ -40,9 +41,15 @@ const getStatusLabel = (status: OrderStatus) => {
   return "";
 };
 
-const OrderList = ({ orders }: OrderListProps) => {
+const OrderList = ({ orders, consumptionMethod }: OrderListProps) => {
+  const { slug } = useParams<{ slug: string }>();
+  const searchParams = useSearchParams();
+  const consumptioinMethod = consumptionMethod;
+
+  console.log({ slug, consumptioinMethod });
+
   const router = useRouter();
-  const handleBackClick = () => router.back();
+  const handleBackClick = () => router.push(`/${slug}/menu`);
 
   return (
     <div className="mx-auto max-w-screen-lg space-y-6 p-6">
