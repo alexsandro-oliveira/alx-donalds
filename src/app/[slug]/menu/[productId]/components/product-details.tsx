@@ -9,6 +9,13 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/cart";
 import CartSheet from "../../components/cart-sheet";
+import { useSession } from "next-auth/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import SignInDialog from "../../components/signIn-dialog";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -23,6 +30,10 @@ interface ProductDetailsProps {
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   const { toggleCart, addProduct } = useContext(CartContext);
   const [quantity, setQuantity] = useState<number>(1);
+  const [signInDialogIsOpen, setSignInDialogIsOpen] = useState(false);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+
+  const { data } = useSession();
 
   const handleIncrementQuantity = () => setQuantity(quantity + 1);
   const handleDecrementQuantity = () => {
@@ -32,9 +43,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   };
 
   const handleAddToCart = () => {
+    if (!data?.user) {
+      return setSignInDialogIsOpen(true);
+    }
     addProduct({ ...product, quantity });
     toggleCart();
   };
+
+  const sidebarToggle = () => setSidebarIsOpen((prev) => !prev);
 
   return (
     <>
@@ -115,6 +131,13 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           Adicionar à sacola
         </Button>
       </div>
+
+      <Dialog open={signInDialogIsOpen} onOpenChange={sidebarToggle}>
+        <DialogContent className="w-[90%] rounded-2xl">
+          <SignInDialog />
+          <DialogDescription />
+        </DialogContent>
+      </Dialog>
 
       <CartSheet />
     </>
