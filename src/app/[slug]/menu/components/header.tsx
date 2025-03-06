@@ -14,12 +14,16 @@ import { useParams, useRouter } from "next/navigation";
 import RatingStarDialog from "./rating-dialog";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import SidebarSheet from "./sidebar-sheet";
+import { useSession } from "next-auth/react";
+import SignInDialog from "./signIn-dialog";
 
 interface RestaurantMenuPageProps {
   restaurant: Pick<Restaurant, "coverImageUrl" | "name" | "id" | "slug">;
 }
 
 const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
+  const { data } = useSession();
+
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
   const handleBackClick = () => router.back();
@@ -70,7 +74,11 @@ const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
         </DialogTrigger>
         <DialogContent className="w-[80%] rounded-3xl">
           <DialogDescription />
-          <RatingStarDialog restaurant={restaurant} />
+          {data?.user ? (
+            <RatingStarDialog restaurant={restaurant} />
+          ) : (
+            <SignInDialog />
+          )}
         </DialogContent>
       </Dialog>
     </div>
