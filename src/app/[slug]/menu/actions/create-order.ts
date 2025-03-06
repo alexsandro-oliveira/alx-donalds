@@ -1,10 +1,10 @@
 "use server";
 
 import { removeCpfPunctuation } from "@/helper/cpf-validator";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/prisma";
 import type { ConsumptionMethod } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 interface CreateOrderInput {
   customerName: string;
@@ -15,9 +15,15 @@ interface CreateOrderInput {
   }>;
   consumptionMethod: ConsumptionMethod;
   slug: string;
+  userId: string;
 }
 
 export const createOrder = async (input: CreateOrderInput) => {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("User not authenticated");
+  }
+
   const restaurant = await db.restaurant.findUnique({
     where: {
       slug: input.slug,
@@ -46,6 +52,7 @@ export const createOrder = async (input: CreateOrderInput) => {
   const order = await db.order.create({
     data: {
       status: "PENDING",
+      userId: session.user.id,
       customerName: input.customerName,
       customerCpf: removeCpfPunctuation(input.customerCpf),
       orderProducts: {
