@@ -3,6 +3,8 @@ import type { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
+import DiscountBadge from "./discount-badge";
+import { calculateTotalPrice } from "@/helper/price";
 
 interface ProductListProps {
   products: Product[];
@@ -26,9 +28,16 @@ const ProductList = ({ products }: ProductListProps) => {
             <p className="mb-3 line-clamp-2 text-xs text-muted-foreground">
               {product.description}
             </p>
-            <span className="font-semibold">
-              {formatCurrency(product.price)}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold">
+                {formatCurrency(calculateTotalPrice(product))}
+              </span>
+              {product.discountPercentage > 0 && (
+                <span className="text-xs text-muted-foreground line-through">
+                  {formatCurrency(product.price)}
+                </span>
+              )}
+            </div>
           </div>
           <div className="relative min-h-[82px] min-w-[120px]">
             <Image
@@ -37,6 +46,11 @@ const ProductList = ({ products }: ProductListProps) => {
               fill
               className="rounded-lg bg-gray-100 object-contain"
             />
+            {product.discountPercentage > 0 && (
+              <div className="absolute left-2 top-2">
+                <DiscountBadge product={product} />
+              </div>
+            )}
           </div>
         </Link>
       ))}

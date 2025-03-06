@@ -16,6 +16,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import SignInDialog from "../../components/signIn-dialog";
+import { calculateTotalPrice } from "@/helper/price";
+import DiscountBadge from "../../components/discount-badge";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -75,9 +77,22 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
           {/* PREÇO E QUANTIDADE */}
           <div className="mt-3 flex items-center justify-between">
-            <span className="text-xl font-semibold">
-              {formatCurrency(product.price)}
-            </span>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-semibold">
+                  {formatCurrency(calculateTotalPrice(product))}
+                </span>
+                {product.discountPercentage > 0 && (
+                  <DiscountBadge product={product} />
+                )}
+              </div>
+              {product.discountPercentage > 0 && (
+                <span className="text-xs text-muted-foreground">
+                  De: {formatCurrency(product.price)}
+                </span>
+              )}
+            </div>
+
             <div className="flex items-center gap-3 text-center">
               <Button
                 size="icon"

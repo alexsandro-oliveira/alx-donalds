@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { CartContext, type CartProduct } from "../contexts/cart";
+import { CartContext, CartProduct } from "../contexts/cart";
 import { formatCurrency } from "@/helper/format-currency";
 import { ChevronLeftIcon, ChevronRightIcon, Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContext } from "react";
+import { calculateTotalPrice } from "@/helper/price";
 
 interface CartProductItemProps {
   product: CartProduct;
@@ -30,9 +31,17 @@ const CartProductItem = ({ product }: CartProductItemProps) => {
           <p className="max-w-[80%] truncate text-xs max-[425px]:max-w-[120px]">
             {product.name}
           </p>
-          <span className="text-sm font-semibold">
-            {formatCurrency(product.price)}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold">
+              {formatCurrency(calculateTotalPrice(product))}
+            </span>
+
+            {product.discountPercentage > 0 && (
+              <span className="text-xs text-muted-foreground line-through">
+                {formatCurrency(product.price)}
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-3 text-center">
             <Button
               variant="outline"

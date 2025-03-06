@@ -1,16 +1,17 @@
 "use client";
 
+import { calculateTotalDiscount, calculateTotalPrice } from "@/helper/price";
 import type { Product } from "@prisma/client";
 import { createContext, useState, type ReactNode } from "react";
 
-export interface CartProduct
-  extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
+export interface CartProduct extends Product {
   quantity: number;
 }
 
 export interface ICartContext {
   isOpen: boolean;
   total: number;
+  subtotal: number;
   products: CartProduct[];
   totalQuantity: number;
   toggleCart: () => void;
@@ -23,6 +24,7 @@ export interface ICartContext {
 export const CartContext = createContext<ICartContext>({
   isOpen: false,
   total: 0,
+  subtotal: 0,
   totalQuantity: 0,
   products: [],
   toggleCart: () => {},
@@ -37,8 +39,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
   // Calculate the total price of the products in the cart
-  const total = products.reduce((acc, product) => {
+  const subtotal = products.reduce((acc, product) => {
     return acc + product.price * product.quantity;
+  }, 0);
+
+  const total = products.reduce((acc, product) => {
+    return acc + calculateTotalPrice(product) * product.quantity;
   }, 0);
 
   // Calculate the total quantity of the products in the cart
@@ -122,6 +128,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         removeProduct,
         total,
         totalQuantity,
+        subtotal,
       }}
     >
       {children}

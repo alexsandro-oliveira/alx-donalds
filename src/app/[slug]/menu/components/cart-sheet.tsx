@@ -12,10 +12,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency } from "@/helper/format-currency";
 import FinishOrderDialog from "./finish-order-dialog";
+import { Separator } from "@/components/ui/separator";
 
 const CartSheet = () => {
   const [finishOrderDialogOpen, setFinishOrderDialogOpen] = useState(false);
-  const { isOpen, toggleCart, products, total } = useContext(CartContext);
+  const { isOpen, toggleCart, products, total, subtotal } =
+    useContext(CartContext);
 
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
@@ -32,7 +34,25 @@ const CartSheet = () => {
           </div>
 
           <Card className="mb-6">
-            <CardContent className="p-5">
+            <CardContent className="space-y-2 p-5">
+              <div className="flex justify-between">
+                <p className="text-sm text-muted-foreground">Subtotal</p>
+                <p className="text-sm font-semibold">
+                  {formatCurrency(subtotal)}
+                </p>
+              </div>
+
+              <Separator />
+
+              <div className="flex justify-between">
+                <p className="text-sm text-muted-foreground">Descontos</p>
+                <p className="text-sm font-semibold">
+                  {formatCurrency(total - subtotal)}
+                </p>
+              </div>
+
+              <Separator />
+
               <div className="flex justify-between">
                 <p className="text-sm text-muted-foreground">Total</p>
                 <p className="text-sm font-semibold">{formatCurrency(total)}</p>
