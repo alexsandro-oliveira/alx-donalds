@@ -40,9 +40,9 @@ const RestaurantMenuPage = async ({
   const rating = await getRatingRestaurant(restaurant);
 
   return (
-    <div>
+    <div className="mx-auto max-w-screen-lg">
       <RestaurantHeader restaurant={restaurant} />
-      <div className="relative z-50 mx-auto mt-[-1.5rem] max-w-screen-lg rounded-t-3xl bg-white">
+      <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-white">
         <div className="p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

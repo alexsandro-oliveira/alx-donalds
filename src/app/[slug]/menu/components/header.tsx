@@ -1,12 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import type { Restaurant } from "@prisma/client";
-import { ChevronLeftIcon, ScrollTextIcon, StarIcon } from "lucide-react";
+import { ChevronLeftIcon, MenuIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import RatingStarDialog from "./rating-dialog";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import SidebarSheet from "./sidebar-sheet";
 
 interface RestaurantMenuPageProps {
   restaurant: Pick<Restaurant, "coverImageUrl" | "name" | "id" | "slug">;
@@ -37,14 +44,19 @@ const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
         className="object-cover"
         priority
       />
-      <Button
-        size="icon"
-        variant="secondary"
-        className="absolute right-4 top-4 z-50 rounded-full"
-        onClick={handleOrdersClick}
-      >
-        <ScrollTextIcon />
-      </Button>
+
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            variant="secondary"
+            size="icon"
+            className="absolute right-4 top-4 z-50 rounded-full"
+          >
+            <MenuIcon />
+          </Button>
+        </SheetTrigger>
+        <SidebarSheet />
+      </Sheet>
 
       <Dialog>
         <DialogTrigger asChild>
@@ -57,6 +69,7 @@ const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
           </Button>
         </DialogTrigger>
         <DialogContent className="w-[80%] rounded-3xl">
+          <DialogDescription />
           <RatingStarDialog restaurant={restaurant} />
         </DialogContent>
       </Dialog>
