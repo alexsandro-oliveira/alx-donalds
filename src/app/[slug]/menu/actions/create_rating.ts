@@ -8,7 +8,6 @@ interface CreateRatingInput {
   rating: number;
   restaurantId: string;
   slug?: string;
-  userId: string;
 }
 
 export const createRating = async (input: CreateRatingInput) => {
