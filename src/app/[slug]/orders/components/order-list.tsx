@@ -29,7 +29,6 @@ interface OrderListProps {
       };
     }>
   >;
-  consumptionMethod: string;
 }
 
 const getStatusLabel = (status: OrderStatus) => {
@@ -41,15 +40,11 @@ const getStatusLabel = (status: OrderStatus) => {
   return "";
 };
 
-const OrderList = ({ orders, consumptionMethod }: OrderListProps) => {
+const OrderList = ({ orders }: OrderListProps) => {
   const { slug } = useParams<{ slug: string }>();
-  const searchParams = useSearchParams();
-  const consumptioinMethod = consumptionMethod;
-
-  console.log({ slug, consumptioinMethod });
 
   const router = useRouter();
-  const handleBackClick = () => router.push(`/${slug}/menu`);
+  const handleBackClick = () => router.push(`/${slug}`);
 
   return (
     <div className="mx-auto max-w-screen-lg space-y-6 p-6">
