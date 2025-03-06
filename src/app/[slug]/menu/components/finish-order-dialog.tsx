@@ -33,6 +33,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../contexts/cart";
 import { Loader2Icon } from "lucide-react";
 import { createStripeCheckout } from "../actions/create-stripe-checkout";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, { message: "o nome é obrigatório" }),
@@ -58,6 +59,12 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
+  const session = useSession();
+  const userId = session.data?.user?.id;
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,6 +87,7 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
         customerName: data.name,
         products,
         slug,
+        userId,
       });
 
       const { sessionId } = await createStripeCheckout({
