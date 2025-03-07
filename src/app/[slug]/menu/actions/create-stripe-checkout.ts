@@ -68,7 +68,16 @@ export const createStripeCheckout = async ({
           name: product.name,
           images: [product.imageUrl],
         },
-        unit_amount: parseInt(String(priceWithDiscount * 100)),
+        unit_amount: parseInt(
+          String(
+            productsWithPrice.find((p) => p.id === product.id)!.price *
+              (1 -
+                productsWithPrice.find((p) => p.id === product.id)!
+                  .discountPercentage /
+                  100) *
+              100,
+          ),
+        ),
       },
       quantity: product.quantity,
     })),
