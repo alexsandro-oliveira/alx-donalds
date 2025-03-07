@@ -45,7 +45,12 @@ export const createOrder = async (input: CreateOrderInput) => {
   const productsWithPricesAndQuantities = input.products.map((product) => ({
     productId: product.id,
     quantity: product.quantity,
-    price: productsWithPrices.find((p) => p.id === product.id)!.price,
+    price:
+      productsWithPrices.find((p) => p.id === product.id)!.price *
+      (1 -
+        productsWithPrices.find((p) => p.id === product.id)!
+          .discountPercentage /
+          100),
   }));
 
   // criar o pedido

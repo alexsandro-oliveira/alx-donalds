@@ -6,10 +6,10 @@ import { Separator } from "@/components/ui/separator";
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns";
 import { formatCurrency } from "@/helper/format-currency";
-import { OrderStatus, type Order, type Prisma } from "@prisma/client";
+import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 interface OrderListProps {
   orders: Array<
