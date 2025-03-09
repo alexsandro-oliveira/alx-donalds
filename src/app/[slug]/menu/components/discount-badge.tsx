@@ -9,7 +9,7 @@ const DiscountBadge = ({ product }: DiscountBadgeProps) => {
   return (
     <div className="flex items-center gap-[2px] rounded-full bg-destructive px-1 py-[2px] text-white">
       <ArrowDownIcon size={10} />
-      <span className="text-[9px] font-semibold">
+      <span className="text-xs font-semibold">
         {product.discountPercentage}%
       </span>
     </div>

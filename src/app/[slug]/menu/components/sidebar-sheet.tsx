@@ -28,7 +28,7 @@ const SidebarSheet = () => {
 
   return (
     <SheetContent className="overflow-y-auto">
-      <SheetHeader>
+      <SheetHeader className="pt-4">
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
 
