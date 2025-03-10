@@ -2,10 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import type { Product } from "@prisma/client";
+import type { ConsumptionMethod, Product } from "@prisma/client";
 import { ChevronLeftIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import SidebarSheet from "../../components/sidebar-sheet";
 
 interface ProductHeaderProps {
@@ -13,9 +13,18 @@ interface ProductHeaderProps {
 }
 
 const ProductHeader = ({ product }: ProductHeaderProps) => {
+  const { slug } = useParams<{ slug: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const handleBackClick = () => router.back();
 
+  const consumptionMethod = searchParams.get(
+    "consumptionMethod",
+  ) as ConsumptionMethod;
+
+  const handleBackClick = () =>
+    router.push(`/${slug}/menu?consumptionMethod=${consumptionMethod}`);
+
+  console.log(slug, consumptionMethod);
   return (
     <div className="relative min-h-[300px] w-full">
       <Button
