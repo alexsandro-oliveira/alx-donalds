@@ -15,13 +15,21 @@ import { LogInIcon, LogOutIcon, ScrollTextIcon } from "lucide-react";
 import SignInDialog from "./signIn-dialog";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import type { ConsumptionMethod } from "@prisma/client";
 
 const SidebarSheet = () => {
   const { data } = useSession();
 
   const { slug } = useParams<{ slug: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
+
+  const consumptionMethod = searchParams.get(
+    "consumptionMethod",
+  ) as ConsumptionMethod;
+
+  console.log(slug, consumptionMethod);
 
   const handleLogountClick = () => signOut();
   const handleOrdersClick = () => router.push(`/${slug}/orders`);
