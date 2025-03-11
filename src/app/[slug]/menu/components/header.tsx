@@ -26,9 +26,7 @@ const RestaurantHeader = ({ restaurant }: RestaurantMenuPageProps) => {
 
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
-  const handleBackClick = () => router.back();
-
-  const handleOrdersClick = () => router.push(`/${slug}/orders`);
+  const handleBackClick = () => router.push(`/${slug}`);
 
   return (
     <div className="relative mx-auto h-[200px] w-full max-w-screen-lg lg:h-[300px]">
