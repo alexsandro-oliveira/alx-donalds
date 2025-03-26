@@ -65,6 +65,8 @@ Este é um projeto [Next.js](https://nextjs.org).
 
 O deploy deste app foi feito na [Vercel platform](https://vercel.com/).
 
+https://alx-donalds.vercel.app/alx-donalds
+
 ## 📚 Aprendizados e Próximos Passos
 
 O desenvolvimento deste app de autoatendimento para restaurantes trouxe diversos insights sobre **inovação no atendimento ao cliente**. Deixando claro a importancia em deixar o usuário livre para realizar suas escolhas do que comer e onde comer. Com isso surgem os desafios técnicos e conceituais que nos ajudam a refinar uma solução, garantindo maior **usabilidade, impacto e escalabilidade**.
